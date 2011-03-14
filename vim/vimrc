@@ -32,6 +32,7 @@ let &guicursor = &guicursor . ",a:blinkon0" "No blinking cursor wake-up
 
 " Status line
 set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
+
 "
 " REGISTERS
 "
@@ -84,6 +85,7 @@ set sts=4
 "
 " SEARCH
 "
+
 set ignorecase      " insensitive search
 
 set smartcase       " if contains uppercase then the search
@@ -125,11 +127,10 @@ autocmd FileType c, cpp     set tabstop=4 set shiftwidth=4 set sts=4|let c_space
 autocmd FileType html       set tabstop=2 set shiftwidth=2 set sts=2
 
 autocmd FileType javascript set expandtab shiftwidth=2 tabstop=2 softtabstop=2|let javascript_enable_domhtmlcss=1
+
 "
 " MAPPINGS
 "
-"map <c-x> <esc>:!pdflatex presentazione-bargelli.tex<cr>
-"map <c-a> <esc>:!evince presentazione-bargelli.pdf<cr>
 
 let mapleader="," " Setting <Leader>
 
@@ -164,5 +165,3 @@ endfunction
 " SuperTab
 let g:SuperTabDefaultCompletionType = 'context' 
 set completeopt=menuone,longest 
-
-"
