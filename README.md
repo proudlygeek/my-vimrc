@@ -10,14 +10,14 @@ Please **backup** your *vimrc* and *.vim* folder before installing my configurat
 
 1.  Clone this repo with:
 
-    git clone git://github.com/proudlygeek/my-vimrc.git
+        git clone git://github.com/proudlygeek/my-vimrc.git
 
 2.  Enter into the folder using:
 
-    cd my-vimrc
+        cd my-vimrc
 
 3.  Type the following:
 
-    make install
+        make install
 
 And you're ready to go :-)
