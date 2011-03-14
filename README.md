@@ -8,12 +8,16 @@ Installation
 
 Please **backup** your *vimrc* and *.vim* folder before installing my configuration files.
 
-Clone this repo with:
+1.  Clone this repo with:
 
->  git clone git://github.com/proudlygeek/my-vimrc.git
+    git clone git://github.com/proudlygeek/my-vimrc.git
 
-Then, from inside the folder, type the following:
+2.  Enter into the folder using:
 
->  make install
+    cd my-vimrc
+
+3.  Type the following:
+
+    make install
 
 And you're ready to go :-)
