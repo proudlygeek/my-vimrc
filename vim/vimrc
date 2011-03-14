@@ -1,0 +1,168 @@
+" Proudlygeek's .vimrc
+" ~~~~~~~~~~~~~~~~~~~~
+"
+" Copyright 2011 Gianluca Bargelli (http://proudlygeek.appspot.com)
+" All rights reserved.
+"
+
+"
+" ENCODING
+"
+
+" Set file encoding to ucs with byte-order-mark (ucs-bom)
+if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+    set fileencodings=ucs-bom,utf-8,latin1
+endif
+
+"
+" GENERAL
+"
+
+set nocompatible    " Run vim in 'nocompatible' mode
+
+set nobackup        " No backup files
+
+set noswapfile      " No swap
+
+set ruler           " Show the cursor coordinates
+
+set noequalalways   " Don't resize buffers after close and split
+
+let &guicursor = &guicursor . ",a:blinkon0" "No blinking cursor wake-up
+
+" Status line
+set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
+"
+" REGISTERS
+"
+
+set history=30          " Keep 30 lines of command history
+
+set viminfo='20,\"30    " read/write a .viminfo file but don't store
+                        " more than 30 lines of registers
+
+" Remember cursor position
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+"
+" TERMINAL
+"
+
+if &term=="xterm"
+    set t_Co=256
+    set t_Sb=m
+    set t_Sf=m
+endif
+
+" Default colorscheme
+colorscheme zenburn
+
+" LaTeX
+autocmd FileType tex colorscheme wombat256
+
+"
+" INDENTATION
+"
+
+filetype plugin on      " Enable file type detection
+
+filetype plugin indent on " Load the indent file
+
+set autoindent              " Auto indenting
+set bs=indent,eol,start     " Allow backspacing over everything in insert mode
+
+set cindent     " Better indentation than smartindent
+
+set tabstop=4   " Set four indent spaces
+
+set shiftwidth=4 "Autoindent and tab-detab spaces
+
+set expandtab   " Replace tabs with spaces
+
+set sts=4
+
+"
+" SEARCH
+"
+set ignorecase      " insensitive search
+
+set smartcase       " if contains uppercase then the search
+                    " is case sensitive
+
+"
+" TEXT FORMATTING
+"
+
+set nowrap          " Don't wrap lines
+
+set sidescroll=1    " Scroll at least one columns horizontally
+
+set sidescrolloff=8 " Keep at least eight columns to the left 
+                    " and to the right of the cursor
+
+set scrolloff=3     " Keep at least three line above and below
+                    " the cursor
+
+set listchars+=extends:>,precedes:<
+
+" Display whitespace errors (at eol, before tab)
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+:match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+" Delete trailing spaces
+:command Notrail %s/\s\+$//
+
+"
+" FILE TYPES
+"
+
+autocmd FileType python     set tabstop=4 shiftwidth=4 sts=4 expandtab
+
+autocmd FileType java       set tabstop=4 shiftwidth=4 sts=4|let java_space_errors=1
+
+autocmd FileType c, cpp     set tabstop=4 set shiftwidth=4 set sts=4|let c_space_errors=1
+
+autocmd FileType html       set tabstop=2 set shiftwidth=2 set sts=2
+
+autocmd FileType javascript set expandtab shiftwidth=2 tabstop=2 softtabstop=2|let javascript_enable_domhtmlcss=1
+"
+" MAPPINGS
+"
+"map <c-x> <esc>:!pdflatex presentazione-bargelli.tex<cr>
+"map <c-a> <esc>:!evince presentazione-bargelli.pdf<cr>
+
+let mapleader="," " Setting <Leader>
+
+" Faster window switching
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Sudo write this!
+cmap w!! w !sudo tee % >/dev/null
+
+" Highlight lines longer than 80 chars with ',H'
+nnoremap <Leader>H :call<SID>LongLineHLToggle()<cr>
+hi OverLength ctermbg=none cterm=none
+match OverLength /\%>80v/
+fun! s:LongLineHLToggle()
+ if !exists('w:longlinehl')
+  let w:longlinehl = matchadd('ErrorMsg', '.\%>80v', 0)
+  echo "Long lines highlighted"
+ else
+  call matchdelete(w:longlinehl)
+  unl w:longlinehl
+  echo "Long lines unhighlighted"
+ endif
+endfunction
+
+"
+" PLUGINS
+"
+
+" SuperTab
+let g:SuperTabDefaultCompletionType = 'context' 
+set completeopt=menuone,longest 
+
+"
