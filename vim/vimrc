@@ -28,6 +28,8 @@ set ruler           " Show the cursor coordinates
 
 set noequalalways   " Don't resize buffers after close and split
 
+set number          " Turn on line numeration
+
 let &guicursor = &guicursor . ",a:blinkon0" "No blinking cursor wake-up
 
 " Status line
@@ -56,7 +58,8 @@ if &term=="xterm"
 endif
 
 " Default colorscheme
-colorscheme zenburn
+let g:jellyx_show_whitespace = 1
+colorscheme jellyx
 
 " LaTeX
 autocmd FileType tex colorscheme wombat256
@@ -65,20 +68,24 @@ autocmd FileType tex colorscheme wombat256
 " INDENTATION
 "
 
-filetype plugin on      " Enable file type detection
+call pathogen#runtime_append_all_bundles()  " Call pathogen BEFORE indent on
 
-filetype plugin indent on " Load the indent file
+filetype off                                " Force reload (pathogen)
 
-set autoindent              " Auto indenting
-set bs=indent,eol,start     " Allow backspacing over everything in insert mode
+filetype plugin on                          " Enable file type detection
 
-set cindent     " Better indentation than smartindent
+filetype plugin indent on                   " Load the indent file
 
-set tabstop=4   " Set four indent spaces
+set autoindent                              " Auto indenting
+set bs=indent,eol,start                     " Allow backspacing over everything in insert mode
 
-set shiftwidth=4 "Autoindent and tab-detab spaces
+set cindent                                 " Better indentation than smartindent
 
-set expandtab   " Replace tabs with spaces
+set tabstop=4                               " Set four indent spaces
+
+set shiftwidth=4                            " Autoindent and tab-detab spaces
+
+set expandtab                               " Replace tabs with spaces
 
 set sts=4
 
@@ -99,7 +106,7 @@ set nowrap          " Don't wrap lines
 
 set sidescroll=1    " Scroll at least one columns horizontally
 
-set sidescrolloff=8 " Keep at least eight columns to the left 
+set sidescrolloff=8 " Keep at least eight columns to the left
                     " and to the right of the cursor
 
 set scrolloff=3     " Keep at least three line above and below
@@ -122,11 +129,11 @@ autocmd FileType python     set tabstop=4 shiftwidth=4 sts=4 expandtab
 
 autocmd FileType java       set tabstop=4 shiftwidth=4 sts=4|let java_space_errors=1
 
-autocmd FileType c, cpp     set tabstop=4 set shiftwidth=4 set sts=4|let c_space_errors=1
+autocmd FileType c,cpp      set tabstop=4 shiftwidth=4 sts=4|let c_space_errors=1
 
-autocmd FileType html       set tabstop=2 set shiftwidth=2 set sts=2
+autocmd FileType html       set tabstop=2 shiftwidth=2 sts=2
 
-autocmd FileType javascript set expandtab shiftwidth=2 tabstop=2 softtabstop=2|let javascript_enable_domhtmlcss=1
+autocmd FileType javascript set expandtab shiftwidth=4 tabstop=4 softtabstop=4|let javascript_enable_domhtmlcss=1
 
 "
 " MAPPINGS
@@ -163,5 +170,5 @@ endfunction
 "
 
 " SuperTab
-let g:SuperTabDefaultCompletionType = 'context' 
-set completeopt=menuone,longest 
+let g:SuperTabDefaultCompletionType = 'context'
+set completeopt=menuone,longest
