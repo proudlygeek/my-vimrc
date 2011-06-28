@@ -51,15 +51,33 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " TERMINAL
 "
 
-if &term=="xterm"
-    set t_Co=256
-    set t_Sb=m
-    set t_Sf=m
+"if &term=="xterm"
+"    set t_Co=256
+"    set t_Sb=m
+"    set t_Sf=m
+"endif
+
+syntax on
+if has("gui_running")
+  colorscheme jellyx
+  let g:jellyx_show_whitespace = 1
+  if has("mac")
+    " does not work properly on os x
+    set guifont=Monaco:h18
+    set guioptions=-tm
+    "set lines=999 columns =999
+    "set fuoptions=maxvert,maxhorz
+    "set fu
+  else
+    set guifont=DejaVu\ Sans\ Mono\ 10
+  endif
+else
+  colorscheme myterm
 endif
 
 " Default colorscheme
-let g:jellyx_show_whitespace = 1
-colorscheme jellyx
+"let g:jellyx_show_whitespace = 1
+"colorscheme jellyx
 
 " LaTeX
 autocmd FileType tex colorscheme wombat256
