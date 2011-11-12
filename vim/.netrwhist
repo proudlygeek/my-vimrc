@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/proudlygeek/Dropbox/github-repos/tiramisu-home/utils'
+let g:netrw_dirhist_2='/Users/proudlygeek/gitolite-admin/conf'
+let g:netrw_dirhist_3='/private/etc/apache2'
+let g:netrw_dirhist_4='/Users/proudlygeek/Dropbox/Ruby/sandbox/anagram/bin'
+let g:netrw_dirhist_5='/Users/proudlygeek/Dropbox/Ruby/Rails/depot'

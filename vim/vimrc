@@ -168,6 +168,9 @@ nnoremap <C-l> <C-w>l
 " Sudo write this!
 cmap w!! w !sudo tee % >/dev/null
 
+" JavaScript Beautifier mapping
+nnoremap <C-x> :call g:Jsbeautify()<cr>
+
 " Highlight lines longer than 80 chars with ',H'
 nnoremap <Leader>H :call<SID>LongLineHLToggle()<cr>
 hi OverLength ctermbg=none cterm=none
@@ -190,3 +193,7 @@ endfunction
 " SuperTab
 let g:SuperTabDefaultCompletionType = 'context'
 set completeopt=menuone,longest
+
+" VimClojure
+let vimclojure#HighlightBuiltins=1 
+let vimclojure#ParenRainbow=1
