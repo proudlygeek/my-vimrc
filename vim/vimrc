@@ -47,15 +47,14 @@ set viminfo='20,\"30    " read/write a .viminfo file but don't store
 " Remember cursor position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-"
 " TERMINAL
 "
 
-"if &term=="xterm"
-"    set t_Co=256
-"    set t_Sb=m
-"    set t_Sf=m
-"endif
+if &term=="xterm-256color"
+    set t_Co=256
+    set t_Sb=m
+    set t_Sf=m
+endif
 
 syntax on
 if has("gui_running")
@@ -76,8 +75,8 @@ else
 endif
 
 " Default colorscheme
-"let g:jellyx_show_whitespace = 1
-"colorscheme jellyx
+let g:jellyx_show_whitespace = 1
+colorscheme jellyx
 
 " LaTeX
 autocmd FileType tex colorscheme wombat256
@@ -145,6 +144,10 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 
 autocmd FileType python     set tabstop=4 shiftwidth=4 sts=4 expandtab
 
+autocmd FileType ruby       set tabstop=2 shiftwidth=2 sts=2 expandtab
+
+autocmd FileType sh,it      set tabstop=2 shiftwidth=2 sts=2 expandtab
+
 autocmd FileType java       set tabstop=4 shiftwidth=4 sts=4|let java_space_errors=1
 
 autocmd FileType c,cpp      set tabstop=4 shiftwidth=4 sts=4|let c_space_errors=1
@@ -152,6 +155,8 @@ autocmd FileType c,cpp      set tabstop=4 shiftwidth=4 sts=4|let c_space_errors=
 autocmd FileType html       set tabstop=2 shiftwidth=2 sts=2
 
 autocmd FileType javascript set expandtab shiftwidth=4 tabstop=4 softtabstop=4|let javascript_enable_domhtmlcss=1
+
+au BufRead,BufNewFile *.scala set filetype=scala
 
 "
 " MAPPINGS
@@ -195,5 +200,33 @@ let g:SuperTabDefaultCompletionType = 'context'
 set completeopt=menuone,longest
 
 " VimClojure
-let vimclojure#HighlightBuiltins=1 
+let vimclojure#HighlightBuiltins=1
 let vimclojure#ParenRainbow=1
+
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+"Add your bundles here
+Bundle 'Gist.vim'
+Bundle 'WebAPI.vim'
+Bundle 'Syntastic'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'https://github.com/tpope/vim-fugitive'
+Bundle 'scala.vim'
+"...All your other bundles...
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :BundleInstall
+endif
+" Setting up Vundle - the vim plugin bundler end
